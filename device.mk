@@ -172,14 +172,15 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/vendor_overlay/$(PRODUCT_TARGET_VNDK_VERSION)/etc/libnfc-nci.conf
 
 PRODUCT_PACKAGES += \
-    NQNfcNci \
+    com.android.nfc_extras \
     com.nxp.nfc.nq \
     android.hardware.nfc@1.0:64 \
     android.hardware.nfc@1.1:64 \
     android.hardware.nfc@1.2:64 \
     android.hardware.secure_element@1.0:64 \
     com.gsma.services.nfc \
-    com.android.nfc_extras \
+    NQNfcNci \
+    vendor.nxp.hardware.nfc@2.0-service \
     vendor.nxp.nxpese@1.0:64 \
     vendor.nxp.nxpnfc@1.0:64
 
