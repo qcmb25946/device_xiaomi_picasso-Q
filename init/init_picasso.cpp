@@ -1,5 +1,8 @@
 /*
-   Copyright (c) 2016, The CyanogenMod Project
+   Copyright (c) 2015, The Linux Foundation. All rights reserved.
+   Copyright (C) 2016 The CyanogenMod Project.
+   Copyright (C) 2019-2020 The LineageOS Project.
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
@@ -25,85 +28,57 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
+#include <fstream>
+#include <unistd.h>
+#include <vector>
+
 #include <android-base/properties.h>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
-#include <stdio.h>
-#include <sys/system_properties.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 
-#include "vendor_init.h"
 #include "property_service.h"
+#include "vendor_init.h"
 
 using android::base::GetProperty;
+using android::init::property_set;
 
-/* From Magisk@jni/magiskhide/hide_utils.c */
-static const char *snet_prop_key[] = {
-	"ro.boot.vbmeta.device_state",
-	"ro.boot.verifiedbootstate",
-	"ro.boot.flash.locked",
-	"ro.boot.selinux",
-	"ro.boot.veritymode",
-	"ro.boot.warranty_bit",
-	"ro.warranty_bit",
-	"ro.debuggable",
-	"ro.secure",
-	"ro.build.type",
-	"ro.build.tags",
-	"ro.build.selinux",
-	NULL
+std::vector<std::string> ro_props_default_source_order = {
+    "",
+    "odm.",
+    "product.",
+    "system.",
+    "vendor.",
 };
 
-static const char *snet_prop_value[] = {
-	"locked",
-	"green",
-	"1",
-	"enforcing",
-	"enforcing",
-	"0",
-	"0",
-	"0",
-	"1",
-	"user",
-	"release-keys",
-	"1",
-	NULL
-};
+void property_override(char const prop[], char const value[], bool add = true) {
+    prop_info *pi;
 
-void property_override(char const prop[], char const value[])
-{
-	prop_info *pi;
-
-	pi = (prop_info*) __system_property_find(prop);
-	if (pi)
-		__system_property_update(pi, value, strlen(value));
-	else
-		__system_property_add(prop, strlen(prop), value, strlen(value));
+    pi = (prop_info *)__system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else if (add)
+        __system_property_add(prop, strlen(prop), value, strlen(value));
 }
 
-void property_override_dual(char const system_prop[], char const vendor_prop[], const char value[])
-{
-	property_override(system_prop, value);
-	property_override(vendor_prop, value);
-}
+void vendor_load_properties() {
+    const auto set_ro_build_prop = [](const std::string &source,
+                                      const std::string &prop,
+                                      const std::string &value) {
+        auto prop_name = "ro." + source + "build." + prop;
+        property_override(prop_name.c_str(), value.c_str(), false);
+    };
 
-static void workaround_snet_properties() {
+    const auto set_ro_product_prop = [](const std::string &source,
+                                        const std::string &prop,
+                                        const std::string &value) {
+        auto prop_name = "ro.product." + source + prop;
+        property_override(prop_name.c_str(), value.c_str(), false);
+    };
 
-	// Hide all sensitive props
-	for (int i = 0; snet_prop_key[i]; ++i) {
-		property_override(snet_prop_key[i], snet_prop_value[i]);
-	}
-}
-
-void vendor_load_properties()
-{
-	property_override("vendor.audio.feature.spkr_prot.enable", "false");
-	property_override("ro.control_privapp_permissions", "log");
-	property_override_dual("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "google/sunfish/sunfish:11/RQ1A.210105.003/7005429:user/release-keys");
-	property_override_dual("ro.build.fingerprint", "ro.product.build.fingerprint", "google/sunfish/sunfish:11/RQ1A.210105.003/7005429:user/release-keys");
-
-	// Workaround SafetyNet
-	workaround_snet_properties();
+    for (const auto &source : ro_props_default_source_order) {
+        set_ro_product_prop(source, "brand", "Redmi");
+        set_ro_product_prop(source, "device", "picasso");
+        set_ro_product_prop(source, "model", "Redmi K30 5G");
+    }
+    property_override("ro.build.description", "coral-user 11 RP1A.201005.004 6782484 release-keys");
 }
