@@ -4,7 +4,8 @@ persist.vendor.radio.atfwd.start=true
 # ART
 dalvik.vm.boot-dex2oat-threads=8
 dalvik.vm.dex2oat-filter=speed
-dalvik.vm.dex2oat-threads=4
+dalvik.vm.dex2oat-threads=8
+dalvik.vm.dex2oat64.enabled=true
 dalvik.vm.image-dex2oat-filter=speed
 dalvik.vm.image-dex2oat-threads=4
 pm.dexopt.ab-ota=speed-profile
