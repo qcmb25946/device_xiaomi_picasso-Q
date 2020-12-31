@@ -228,12 +228,6 @@ PRODUCT_PACKAGES += \
     libvndfwk_detect_jni.qti \
     libqti_vndfwk_detect
 
-# RCS
-PRODUCT_PACKAGES += \
-    com.android.ims.rcsmanager \
-    PresencePolling \
-    RcsService
-
 # Telephony
 PRODUCT_PACKAGES += \
     ims-ext-common \
