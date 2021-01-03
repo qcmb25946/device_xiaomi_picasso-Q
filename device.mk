@@ -275,6 +275,9 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_BOOT_JARS += \
     android.hidl.manager-V1.0-java
 
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/opensource/dataservices
+
 # Thermal
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0
