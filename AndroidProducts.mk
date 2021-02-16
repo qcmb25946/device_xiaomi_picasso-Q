@@ -1,5 +1,6 @@
 #
-# Copyright (C) 2020 OctaviOS
+# Copyright (C) 2020 AICP
+# Copyright (C) 2021 LegionOS
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -8,6 +9,6 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/octavi_picasso.mk
 
 COMMON_LUNCH_CHOICES := \
-    octavi_picasso-eng \
-    octavi_picasso-userdebug \
-    octavi_picasso-user
+    legion_picasso-eng \
+    legion_picasso-userdebug \
+    legion_picasso-user

@@ -1,11 +1,11 @@
-![Octavi](https://raw.githubusercontent.com/Octavi-OS/Docs/main/Source.png "Octavi")
+![Legion](https://forum.xda-developers.com/proxy.php?image=https%3A%2F%2Fraw.githubusercontent.com%2FlegionRom%2Fxda_templete%2Fmaster%2Flogos%2FPicsArt_05-31-07.22.49.jpg&hash=b402290007e6c056ee0fec410a2bb84e "Legion")
 
-OctaviOS 1.4 (A11/R) for Redmi K30 5G (picasso)
+LegionOS 3.6 (A11/R) for Redmi K30 5G (picasso)
 ======================================
 
 # How to build
 
-Download Octavi's source and picasso repos. You can have a look at my manifest:
+Download Legion's source and picasso repos. You can have a look at my manifest:
 
 https://github.com/masemoel/local_manifests/blob/master/picasso_r.xml
 
@@ -13,7 +13,8 @@ Then go to the source folder and run:
 
 ```bash
 . build/envsetup.sh
-brunch picasso
+lunch legion_picasso-userdebug
+make legion
 ```
 
 # Device specifications
