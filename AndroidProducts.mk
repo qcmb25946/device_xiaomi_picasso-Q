@@ -6,7 +6,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/octavi_picasso.mk
+    $(LOCAL_DIR)/legion_picasso.mk
 
 COMMON_LUNCH_CHOICES := \
     legion_picasso-eng \
