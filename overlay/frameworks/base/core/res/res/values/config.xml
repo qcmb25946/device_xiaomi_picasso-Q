@@ -804,7 +804,7 @@
     <string name="config_batChargeCycle">/sys/class/power_supply/bms/cycle_count</string>
     <string name="config_batDesCap">/sys/class/power_supply/bms/charge_full_design</string>
     <string name="config_batCurCap">/sys/class/power_supply/bms/charge_full</string>
-    <bool name="config_supportBatteryHealth">true</bool>
+    <bool name="config_supportBatteryHealth">true</bool> 
 
     <!-- Smart charging -->
     <bool name="config_smartChargingAvailable">true</bool>
