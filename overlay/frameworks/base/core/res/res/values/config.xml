@@ -177,7 +177,6 @@
         <item>2.0</item>
         <item>450.0</item>
     </array>
-    </integer-array>
     <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
     <integer name="config_shutdownBatteryTemperature">600</integer>
     <!-- The default refresh rate for a given device. Change this value to set a higher default
